@@ -29,7 +29,6 @@ class TimedSetTest {
 
   @Test
   public void shouldRefreshItem() throws InterruptedException {
-    final var set = new TimedSet<Integer>(1000);
     final var item = 1;
     set.add(item);
     assertEquals(set.size(), 1);
