@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -32,22 +31,22 @@ public class TimedSet<T> implements ITimedSet<T> {
 
   @Override
   public boolean contains(Object o) {
-    return asSet().contains(o);
+    return this.map.containsKey(o);
   }
 
   @Override
   public Iterator<T> iterator() {
-    return asSet().iterator();
+    return this.map.keySet().iterator();
   }
 
   @Override
   public Object[] toArray() {
-    return asSet().toArray();
+    return this.map.keySet().toArray();
   }
 
   @Override
   public <T1> T1[] toArray(T1[] t1s) {
-    return asSet().toArray(t1s);
+    return this.map.keySet().toArray(t1s);
   }
 
   @Override
@@ -70,7 +69,7 @@ public class TimedSet<T> implements ITimedSet<T> {
 
   @Override
   public boolean containsAll(Collection<?> collection) {
-    return this.asSet().containsAll(collection);
+    return this.map.keySet().containsAll(collection);
   }
 
   @Override
@@ -123,9 +122,5 @@ public class TimedSet<T> implements ITimedSet<T> {
     final var executor = this.map.get(key);
     executor.cancel(true);
     return this.add(key);
-  }
-
-  private Set<T> asSet() {
-    return this.map.keySet();
   }
 }
